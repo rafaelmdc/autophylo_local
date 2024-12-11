@@ -15,6 +15,7 @@ Local "branch" of the autophylo pipeline focused on locating and extacting infor
 ---
 
 ## Description
+All variables for the config are in bold.
 
 ### add_gene_id
 If found, adds the gene ID present in the fasta header to the file name, enabling the usage of the discombobulate operation without losing the geneID information.
@@ -31,6 +32,8 @@ Adds the specified **rank**, specified in the config file from the following opt
 
 Requires a local ncbi taxonomy database copy to ensure no network and API issues, the **path** to the database must be specified in the config as **taxonomy_database** (will probably change this).
 
+variables: rank, taxonomy_database
+
 ### annotate_poly
 From a given number of input fasta files finds the specified poly **aminoacid** and minimum **size***. By default, it will permit any 1 aminoacid break in the polyQ sequences, this can be disabled by adding **break_poly** as false to the config file.
 
@@ -40,13 +43,18 @@ If the given sequence has a a poly match, it will append the relevant data to th
 
 The module needs to translate nucleotide sequences, by default it will delete this translated file, an optional parameter **removal** can be set to false to disable this behaviour. 
 
+>variables: aminoacid, size, break_poly,removal
+
 ### check_contamination
 From a given **contamination_taxonomy** finds it's ID in a local ncbi **taxonomy_database** (path to the database) and checks it against the file taxon, _*if and only if*_ the taxon ID is specified in the name (can be done by add_taxonomy).
 Non matching IDs will not be in the output folder, instead they will be inside the "contamination" folder.
 
+>variables: contamination_taxonomy, taxonomy_database
 
 ### data_retrieve
 From a specified **taxonomy_name** downloads to the output folder every ncbi complete genome and chromossome refseq dataset with the matching taxon.
+
+>variables: taxonomy_name
 
 ### find_poly
 From a given number of input fasta files finds the specified poly **aminoacid** and **minimum size***. By default, it will permit any 1 aminoacid break in the polyQ sequences, this can be disabled by adding **break_poly** as false to the config file.
@@ -55,6 +63,8 @@ This module differs from annotate_poly since, the output folder only the matchin
 It is **very important** to note, in order for this module to work, **add_taxonomy** needs to have been run, since it relies on the information to generate the spreadsheet data. (this can be changed to be a variable, is it worth it?)
 
 Currently it only accepts family names for automatic taxon generation.
+
+>variables: aminoacid, size, break_poly, removal
 
 ### poly_create_graph
 After running a find_poly, the user can add poly_create_graph to the pipeline. This module will take the data from the former and generate relevant graphs.
