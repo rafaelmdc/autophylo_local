@@ -10,6 +10,7 @@
 
 ### Overview
 Local "branch" of the autophylo pipeline focused on locating and extacting information of homorepeats with brief usage documentation and descriptions.
+**Requires seperate download of autophylo.**
 
 
 ---
