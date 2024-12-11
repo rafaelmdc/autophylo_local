@@ -11,20 +11,12 @@ RUN pip3 install --no-cache-dir biopython pandas matplotlib
 WORKDIR /opt
 
 # Copy necessary files
-COPY version3.zip /opt
-COPY boxplotGeneration.py /opt
-COPY find_poly.py /opt
-COPY find_poly.sh /opt
-COPY poly_create_graph.sh /opt
-COPY poly_create_graph.py /opt
-COPY translate.sh /opt
-COPY translate.py /opt
-COPY wich_reference.py /opt
-COPY wich_reference.sh /opt
-COPY annotate_poly.py /opt
-COPY annotate_poly.sh /opt
-COPY data_retrieve.sh /opt
-# COPY add_taxonomy /opt
+
+#Version of autophylo to run
+#COPY version3.zip /opt 
+
+COPY /python_modules/ /opt/
+COPY /driver_modules/ /opt/
 
 # Unzip the file and remove the zip
 RUN unzip version3.zip && \

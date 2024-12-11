@@ -135,7 +135,7 @@ class Poly:
             f"{os.path.splitext(input_basename)[0]}_{i}.fasta",
         )
 
-        self.taxonomy = re.search(r"_([^_]+)_(GCF|GCA)", input_basename).group(1)
+        self.taxonomy = re.search(r".*_([^_]+ae)_.*", input_basename).group(1)
 
     def find_matches(self, pattern, header, sequence, nucsequence):
         matches = pattern.finditer(sequence)

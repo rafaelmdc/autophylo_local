@@ -56,9 +56,6 @@ class FileManagment:
         shutil.copy(os.path.join(self.input_path, file_name), os.path.join(self.contaminated_path, file_name))
 
 if __name__ == '__main__':
-    # Valid ranks to check against the database
-    valid_ranks = ["species", "genus", "family", "order", "class", "phylum", "kingdom"]
-
     # CLI argument parser setup
     parser = argparse.ArgumentParser(description='Classify files based on taxonomy ID.')
     parser.add_argument("-id", "--input_directory", help="Directory containing input files", required=True)

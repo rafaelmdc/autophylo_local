@@ -38,7 +38,7 @@ done
 # If all ranks are valid, proceed; otherwise, exit
 if [ "$all_valid" = true ]; then
     mkdir -p /data/$out_dir
-    python3 add_taxonomy.py -id /data/$input_dir -od /data/$out_dir -db $taxonomy_database -r "$rank"
+    python3 add_taxonomy_local.py -id /data/$input_dir -od /data/$out_dir -db $taxonomy_database -r "$rank"
 else
     echo "[Error] One or more ranks provided are invalid. Exiting."
     exit 1

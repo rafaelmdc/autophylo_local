@@ -5,7 +5,7 @@ import shutil
 import pandas as pd
 import re
 import math
-from boxplotGeneration import Boxplot
+from boxplot_generation import Boxplot
 
 
 class csvFixer:
@@ -197,7 +197,7 @@ if __name__ == "__main__":
         full_data_list[0].append(lenght_data)
 
         start_point = datamanager.get_start_indexes()
-        full_data_list[1].append(lenght_data)
+        full_data_list[1].append(start_point)
 
         name_repeats = datamanager.name_repeats()
         full_data_list[2].append(name_repeats)
@@ -215,20 +215,20 @@ if __name__ == "__main__":
 
     y_labels = [
         "Count",
+        "Start point in %",
         "Count",
-        "Log2 count",
-        "start point in %",
-        "Count",
-        "Log2 count",
+        "Log 2 count",
+        "CAG/CAA frequency",
+        "Log2 Relation",
     ]
 
     titles = [
         "Length of polyQ",
-        "Appearences per protein",
-        "Log appearences",
-        "Starting point of polyQ",
+        "Start point",
+        "Poly count per protein",
+        "Log2 Poly count per portein",
         "CAG/CAA relation",
-        "CAG/CAA relation log2",
+        "Log2 CAG/CAA frequency",
     ]
 
     boxplot_dynamic = Boxplot(
