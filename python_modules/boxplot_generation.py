@@ -132,7 +132,13 @@ class Boxplot:
             else:
                 # Dynamic sizing: width based on number of boxes, height fixed
                 num_boxes = len(data)
-                width = max(4, num_boxes * 1.15 ** (num_boxes / 2))
+                if num_boxes < 10:
+                    width = max(4, num_boxes + 0.65 * num_boxes)
+                elif num_boxes < 20:
+                    width = num_boxes
+                else:
+                    width = num_boxes / 2
+
                 height = 6  # Fixed height
                 figsize = (width, height)
 

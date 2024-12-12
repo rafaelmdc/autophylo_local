@@ -179,39 +179,53 @@ if __name__ == "__main__":
         args.output_directory, args.input_directory, args.report_directory
     )
 
-    # TODO make each taxonomy go to their directory?
     csv_fixer.create_taxonomy_dir()
 
-    full_data_list = [[], [], [], [], [], []]
-    labels = [[], [], [], [], [], []]
     titles = []
     ylabels = []
 
+    full_data_list = [[] for _ in range(6)]
+    labels = [[] for _ in range(6)]
+
     for taxonomy in os.listdir(args.report_directory):
-        file = os.listdir(os.path.join(args.report_directory, taxonomy))
-        csv_path = os.path.join(args.report_directory, taxonomy, file[0])
-        datamanager = DataRetrieve(file_path=csv_path)
+        # Get all files in the taxonomy directory
+        files = os.listdir(os.path.join(args.report_directory, taxonomy))
 
-        # data
-        lenght_data = datamanager.get_column_list("Length")
-        full_data_list[0].append(lenght_data)
+        merged_length_data = []
+        merged_start_point = []
+        merged_name_repeats = []
+        merged_log_name_repeats = []
+        merged_polycodons = []
+        merged_log_polycodons = []
 
-        start_point = datamanager.get_start_indexes()
-        full_data_list[1].append(start_point)
+        for file in files:
+            csv_path = os.path.join(args.report_directory, taxonomy, file)
+            datamanager = DataRetrieve(file_path=csv_path)
 
-        name_repeats = datamanager.name_repeats()
-        full_data_list[2].append(name_repeats)
+            merged_length_data.extend(datamanager.get_column_list("Length"))
+            merged_start_point.extend(datamanager.get_start_indexes())
 
-        log_name_repeats = [math.log2(x) for x in name_repeats]
-        full_data_list[3].append(log_name_repeats)
+            name_repeats = datamanager.name_repeats()
+            merged_name_repeats.extend(name_repeats)
+            merged_log_name_repeats.extend([math.log2(x) for x in name_repeats])
 
-        polycodons = datamanager.caacag_relations()
-        full_data_list[4].append(polycodons)
+            polycodons = datamanager.caacag_relations()
+            merged_polycodons.extend(polycodons)
+            merged_log_polycodons.extend(
+                [round(math.log2(x), 8) if x != 0 else 0 for x in polycodons]
+            )
 
-        log_polycodons = [round(math.log2(x), 3) for x in polycodons]
-        full_data_list[5].append(log_polycodons)
+        full_data_list[0].append(merged_length_data)
+        full_data_list[1].append(merged_start_point)
+        full_data_list[2].append(merged_name_repeats)
+        full_data_list[3].append(merged_log_name_repeats)
+        full_data_list[4].append(merged_polycodons)
+        full_data_list[5].append(merged_log_polycodons)
 
         [labels[x].append(taxonomy) for x in range(6)]
+
+    print(len(labels[1]))
+    print(labels[1])
 
     y_labels = [
         "Count",

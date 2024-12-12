@@ -13,7 +13,7 @@ WORKDIR /opt
 # Copy necessary files
 
 #Version of autophylo to run
-#COPY version3.zip /opt 
+COPY version3.zip /opt 
 
 COPY /python_modules/ /opt/
 COPY /driver_modules/ /opt/
